@@ -12,7 +12,7 @@
 #### 1) First, compile the c code in the terminal
 #### gcc -o client clientTCP.c
 #### 2) Then to send a message to the server input the following into the command line
-#### ./client <ip address of the server> <message>
+#### ./client (ip address of the server) (message)
 
 
 
