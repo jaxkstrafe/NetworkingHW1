@@ -113,17 +113,15 @@ int main(void)
 	    //Number of bytes received from the clients message
 	    int numBytes = recv(new_fd, message, MAXDATASIZE - 1, 0);
 
-            //Receive message from the client using 'recv'
-            if (numBytes == -1) {
-                perror("recv");
-                exit(1);
-            }
+        //Receive message from the client using 'recv'
+        if (numBytes == -1) {
+            perror("recv");
+            exit(1);
+        }
         
-	        for (int i = 0; i < numBytes ; ++i) {
-    		    if(islower(message[i])){
-        	    message[i] = toupper(message[i]); // corrected from toupper[message[i]]
-    	    	    }
-	        }	
+        for(int i = 0; i < numbytes; i++){
+    	    message[i] = toupper(message[i]);
+        }
 	    
 	    message[numBytes] = '\0'; // Null-terminate the modified message
 
