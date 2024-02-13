@@ -44,7 +44,7 @@ int main(void)
 
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC;
-    hints.ai_socktype = SOCK_STREAM;
+    hints.ai_socktype = SOCK_STREAM; //Socket type is stream socket
     hints.ai_flags = AI_PASSIVE;
 
     if ((rv = getaddrinfo(NULL, PORT, &hints, &servinfo)) != 0) {
@@ -110,7 +110,7 @@ int main(void)
             close(sockfd);
             
 // ------------------------------------------------------------------------
-	    //Number of bytes receives from the clients message
+	    //Number of bytes received from the clients message
 	    int numBytes = recv(new_fd, message, MAXDATASIZE - 1, 0);
 
             //Receive message from the client using 'recv'
