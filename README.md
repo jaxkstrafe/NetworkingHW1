@@ -17,7 +17,7 @@
 # serverUDP.c
 ### How to run
 #### 1) First, compile the c code in the terminal 
-#### gcc -o server serverTCP.c
+#### gcc -o server serverUDP.c
 #### 2) Then use the server object file to begin the server
 #### ./server
 #### 3) The server is now running and waiting for connections
@@ -25,7 +25,7 @@
 # clientUDP.c
 ## How to Run
 #### 1) First, compile the c code in the terminal
-#### gcc -o client clientTCP.c
+#### gcc -o client clientUDP.c
 #### 2) Then to send a message to the server input the following into the command line
 #### ./client (ip address of the server) (message)
 
