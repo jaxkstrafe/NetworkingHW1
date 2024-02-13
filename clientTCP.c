@@ -91,6 +91,7 @@ int main(int argc, char *argv[]) {
     //Prints the number of bits recieved
     printf("client: recieved %d bytes\n", numbytes);
 
+    //Close the socket
     close(sockfd);
 
     return 0;

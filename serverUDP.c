@@ -1,7 +1,3 @@
-/*
- * listener.c -- a datagram sockets "server" demo
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -70,7 +66,7 @@ int main(void) {
     freeaddrinfo(servinfo);
 
     //After this line the server is now waiting to recieve a message from a client
-    printf("listener: waiting to recvfrom...\n");
+    printf("Server: waiting to recvfrom...\n");
 
     //When a client sends a message to the server the server
     //Receives the message from the client using recvfrom
@@ -82,12 +78,12 @@ int main(void) {
     }
 
     //Prints the IP address it received the message from
-    printf("listener: got packet from %s\n", inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s));
+    printf("Server: got packet from %s\n", inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s));
     
     message[numbytes] = '\0';
     
     //Prints the message it recieved from the client
-    printf("listener: recived client message\"%s\"\n", message);
+    printf("Server: recived client message\"%s\"\n", message);
     
     //Coverts the message from the client to all uppercase as per the instructions
     //Using the c function toupper to change each letter to uppercase
@@ -103,7 +99,7 @@ int main(void) {
     
     //Prints the number of bytes it sent to the client
     //Which is just the num of bytes contained in the message
-    printf("listener: sent %d bytes back to the client\n", numbytes);
+    printf("Server: sent %d bytes back to the client\n", numbytes);
 
     //Close the socket
     close(sockfd);
