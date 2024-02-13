@@ -31,12 +31,13 @@
 
 
 
-# Short Answer Questions
-(a) (5 points) What happens when you use the same port numbers on both sides: client and
+## Short Answer Questions
+### (a) (5 points) What happens when you use the same port numbers on both sides: client and
 server? Do these ports interfere with each other?
-(b) (5 points) Set the port of the server side to less than 1024 and then try to run your code
+#### (b) (5 points) Set the port of the server side to less than 1024 and then try to run your code
 again. Why is it asking to enter your admin password to run the program?
-(c) (5 points) TCP is a byte-stream oriented protocol and UDP is a message oriented protocol.
+#### The first 1024 ports are reserved, so Linux wants to limit this potentially risky action to only those who know what they're doing. It also may serve as an "an you sure?" type of confirmation protocol.
+### (c) (5 points) TCP is a byte-stream oriented protocol and UDP is a message oriented protocol.
 Explain what does it mean with an example.
 
 
