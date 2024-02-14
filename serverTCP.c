@@ -11,10 +11,13 @@
 #include <sys/wait.h>
 #include <signal.h>
 #include <ctype.h>
-
-#define PORT "8088"      // Port users will be connecting to
-#define BACKLOG 10       // How many pending connections queue will hold
-#define BUFFERSIZE 100  // Max number of bytes we can receive at once
+//Port users will be connecting to
+#define PORT "8088" 
+//How many pending connections queue will hold
+//Although not necessary just including it since it was in the textbook
+#define BACKLOG 10    
+//Max number of bytes we can receive at once
+#define BUFFERSIZE 100  
 
 void sigchld_handler(int s)
 {
@@ -118,7 +121,9 @@ int main(void)
             perror("recv error");
             exit(1);
         }
-        
+
+	//Uses the c function toupper which was imported using #include <ctype.h> to
+	//capitalize every letter in the message
         for(int i = 0; i < numBytes; i++){
     	    buf[i] = toupper(buf[i]);
         }
@@ -128,7 +133,7 @@ int main(void)
 	    printf("server: message received '%s' \n", buf);
 
 
-            //Send received message back to client
+            //Send the received message back to the client using send()
             if (send(new_fd, buf, strlen(buf), 0) == -1) {
                 perror("send error");
                 exit(1);
@@ -136,6 +141,7 @@ int main(void)
 
             exit(0);
         }
+	//Close the new socket
         close(new_fd);
     }
 
