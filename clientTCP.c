@@ -12,14 +12,13 @@
 //The Port given in the instructions that the server is listening too
 #define PORT "8088" 
 //Max number of bytes given in the intructions
-#define MAXDATASIZE 100      
+#define BUFFERSIZE 100      
 
 
 //Code Copied from the textbook
 int main(int argc, char *argv[]) {
     int sockfd, numbytes;
-    //Changed buf (as seen in the textbook) to message, just made more sense
-    char message[MAXDATASIZE];
+    char buf[BUFFERSIZE];
     struct addrinfo hints, *servinfo, *p;
     int rv;
     int len;
@@ -67,26 +66,28 @@ int main(int argc, char *argv[]) {
     //that will be used to send to the server
     len = strlen(argv[2]);
     
+    printf("client: connecting to %s\n", argv[1]);
+    
     //Sends a message to the server using 'send' 
     if (send(sockfd, argv[2], len, 0) == -1) {
-        perror("send");
+        perror("send failure");
         exit(1);
     }
 
     //Number of bytes received from the servers message
-    numbytes = recv(sockfd, message, MAXDATASIZE - 1, 0);
+    numbytes = recv(sockfd, buf, BUFFERSIZE , 0);
 
     //Receive the modified message from the server using recv as seen in the textbook
     if (numbytes == -1) {
-        perror("recv");
+        perror("recv failure");
         exit(1);
     }
 
     // Null-terminate the received message
-    message[numbytes] = '\0';
+    buf[numbytes] = '\0';
 
     //Prints the received message from the server
-    printf("%s\n", message);
+    printf("%s\n", buf);
     
     //Prints the number of bits recieved
     printf("client: recieved %d bytes\n", numbytes);
@@ -96,4 +97,3 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
-

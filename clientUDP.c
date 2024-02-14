@@ -10,7 +10,7 @@
 #include <netdb.h>
 
 #define SERVERPORT "8088" // the port users will be connecting to
-#define MAXDATASIZE 100 // max number of bytes the client can send
+#define BUFFERSIZE 100 // max number of bytes the client can send
 
 int main(int argc, char *argv[]) {
     int sockfd;
@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
     int rv;
     int numbytes;
     int len;
-    char message[MAXDATASIZE];
+    char buf[BUFFERSIZE];
 
     if (argc != 3) {
         fprintf(stderr,"usage: talker hostname message\n");
@@ -73,22 +73,19 @@ int main(int argc, char *argv[]) {
     printf("client: connecting to %s\n", argv[1]);
     
     //The client then receives the captialzied message from the server using recvfrom
-    if((numbytes = recvfrom(sockfd, message, MAXDATASIZE - 1, 0, NULL, NULL)) == -1){
+    if((numbytes = recvfrom(sockfd, buf, BUFFERSIZE - 1, 0, NULL, NULL)) == -1){
     	perror("recvfrom");
     	exit(1);
     }
-    
-    message[numbytes] = '\0';
     
     //Prints the amount of bytes it recieved from the server
     printf("client: recieved %d bytes\n", numbytes);
     
     //Prints the received message
-    printf("%s\n", message);
+    printf("%s\n", buf);
     
     //Close the socket
     close(sockfd);
 
     return 0;
 }
-

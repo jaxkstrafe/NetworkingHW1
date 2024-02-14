@@ -13,7 +13,7 @@
 #define MYPORT "8088" // the port users will be connecting to
 #define MAXDATASIZE 100
 
-// get sockaddr, IPv4 or IPv6:
+// get sockaddr, IPv4
 void *get_in_addr(struct sockaddr *sa) {
     if (sa->sa_family == AF_INET) {
         return &(((struct sockaddr_in*)sa)->sin_addr);
@@ -80,7 +80,6 @@ int main(void) {
     //Prints the IP address it received the message from
     printf("Server: got packet from %s\n", inet_ntop(their_addr.ss_family, get_in_addr((struct sockaddr *)&their_addr), s, sizeof s));
     
-    message[numbytes] = '\0';
     
     //Prints the message it recieved from the client
     printf("Server: recived client message\"%s\"\n", message);
@@ -106,4 +105,3 @@ int main(void) {
 
     return 0;
 }
-

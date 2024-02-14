@@ -14,7 +14,7 @@
 
 #define PORT "8088"      // Port users will be connecting to
 #define BACKLOG 10       // How many pending connections queue will hold
-#define MAXDATASIZE 100  // Max number of bytes we can receive at once
+#define BUFFERSIZE 100  // Max number of bytes we can receive at once
 
 void sigchld_handler(int s)
 {
@@ -40,7 +40,7 @@ int main(void)
     int yes = 1;
     char s[INET6_ADDRSTRLEN];
     int rv;
-    char message[MAXDATASIZE];
+    char buf[BUFFERSIZE];
 
     memset(&hints, 0, sizeof hints);
     hints.ai_family = AF_UNSPEC;
@@ -99,7 +99,7 @@ int main(void)
         sin_size = sizeof their_addr;
         new_fd = accept(sockfd, (struct sockaddr *)&their_addr, &sin_size);
         if (new_fd == -1) {
-            perror("accept");
+            perror("accept error");
             continue;
         }
 
@@ -107,30 +107,30 @@ int main(void)
         printf("server: got connection from %s\n", s);
 
         if (!fork()) {
-            close(sockfd);
+        close(sockfd);
             
 // ------------------------------------------------------------------------
-	    //Number of bytes received from the clients message
-	    int numBytes = recv(new_fd, message, MAXDATASIZE - 1, 0);
+	//Number of bytes received from the clients message
+	int numBytes = recv(new_fd, buf, BUFFERSIZE, 0);
 
         //Receive message from the client using 'recv'
         if (numBytes == -1) {
-            perror("recv");
+            perror("recv error");
             exit(1);
         }
         
-        for(int i = 0; i < numbytes; i++){
-    	    message[i] = toupper(message[i]);
+        for(int i = 0; i < numBytes; i++){
+    	    buf[i] = toupper(buf[i]);
         }
 	    
-	    message[numBytes] = '\0'; // Null-terminate the modified message
+	    buf[numBytes] = '\0'; // Null-terminate the modified message
 
-	    printf("server: message received '%s' \n", message);
+	    printf("server: message received '%s' \n", buf);
 
 
             //Send received message back to client
-            if (send(new_fd, message, strlen(message), 0) == -1) {
-                perror("send");
+            if (send(new_fd, buf, strlen(buf), 0) == -1) {
+                perror("send error");
                 exit(1);
             }
 
@@ -141,4 +141,3 @@ int main(void)
 
     return 0;
 }
-
